@@ -1,0 +1,16 @@
+import math
+
+def rat_operation(x, operation):
+    if operation == 'numer':
+        g = math.gcd(x[0], x[1])
+        return x[0] / g
+    elif operation == 'denom':
+        g = math.gcd(x[0], x[1])
+        return x[1] / g
+    else:
+        raise ValueError("ERROR")
+
+
+
+print("Числитель:", rat_operation((6, 9), 'numer'))
+print("Знаменатель:", rat_operation((6, 9), 'denom'))
