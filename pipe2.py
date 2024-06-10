@@ -1,0 +1,26 @@
+class PipePressure:
+    def __init__(self, flow_rate, elevation, fluid_density, pressure, previous_pressure=None):
+        self.flow_rate = flow_rate
+        self.elevation = elevation
+        self.fluid_density = fluid_density
+        self.pressure = pressure
+        self.previous_pressure = previous_pressure
+
+    def eq(self):
+        return (9.81 * self.fluid_density * self.flow_rate * self.elevation) / (self.pressure * 1000)
+
+    def with_previous(self, f1):
+        return (9.81 * self.fluid_density * self.flow_rate * self.elevation) / (self.previous_pressure * 1000 * f1())
+
+    def calc(self, f1):
+        if self.previous_pressure is None:
+            return self.eq()
+        else:
+            return self.with_previous(f1)
+
+    def compute(self):
+        return self.calc(self.eq)
+
+
+calc = PipePressure(12, 12, 3, 5, 12)
+print(calc.compute())
